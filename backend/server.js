@@ -9,6 +9,14 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const authRoutes = require('./routes/auth.routes');
+const capsuleRoutes = require('./routes/capsule.routes');
+const wallRoutes = require('./routes/wall.routes');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/capsules', capsuleRoutes);
+app.use('/api/wall', wallRoutes);
+
 // allows our frontend to talk to this backend
 app.use(cors());
 
