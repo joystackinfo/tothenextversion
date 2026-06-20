@@ -3,6 +3,7 @@ const Capsule = require('../models/capsule.model');
 const User = require('../models/user.model');
 const { Resend } = require('resend');
 
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // runs every day at midnight

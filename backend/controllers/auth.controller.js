@@ -13,9 +13,11 @@ const generateToken = (id) => {
 
 // POST /api/auth/register
 const register = async (req, res) => {
-    const { name, email, password, username } = req.body;
-
+   
     try {
+
+         const { name, email, password, username } = req.body;
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'Email already in use' });
@@ -48,6 +50,8 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
+        const { email, password } = req.body;
+
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
@@ -74,6 +78,8 @@ const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     try {
+         const { email } = req.body;
+         
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ message: 'No account with that email' });
