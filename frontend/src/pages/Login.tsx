@@ -46,7 +46,7 @@ export default function Login() {
 return (
     <div className="auth-page">
       <div className="auth-header">
-        <span className="auth-logo">To the <em>Next Version</em></span>
+        <span className="auth-logo">To the Next Version</span>
       </div>
 
       <div className="auth-body">
