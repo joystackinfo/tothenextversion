@@ -1,0 +1,124 @@
+.landing {
+  min-height: 100vh;
+  background: var(--bg-main);
+  padding: 3rem 1.5rem;
+}
+
+.hero {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.accent {
+  font-style: italic;
+  color: var(--brown-warm);
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-sub);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.sealed-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--text-sub);
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
+
+.wall-preview {
+  max-width: 900px;
+  margin: 2rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.wall-preview h2 {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.wall-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.wall-card {
+  background: var(--card-bg);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.wall-header {
+  margin-bottom: 1rem;
+}
+
+.wall-time {
+  color: var(--text-sub);
+  font-size: 0.85rem;
+}
+
+.wall-username {
+  color: var(--text-dark);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.wall-content {
+  color: var(--text-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.wall-details {
+  text-align: left;
+  color: var(--brown-warm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.wall-footer {
+  padding-top: 1rem;
+  border-top: 0.5px solid var(--border);
+}
+
+.wall-likes {
+  color: var(--brown-warm);
+  font-weight: 500;
+}

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
-import Auth from './pages/Auth';
+import Login from './pages/Login'
+import Register from './pages/Register'
 import Dashboard from './pages/Dashboard';
 import CreateCapsule from './pages/CreateCapsule';
 import MyCapsules from './pages/MyCapsules';
@@ -14,7 +15,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/create" element={<ProtectedRoute><CreateCapsule /></ProtectedRoute>} />
         <Route path="/capsules" element={<ProtectedRoute><MyCapsules /></ProtectedRoute>} />

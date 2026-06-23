@@ -1,16 +1,13 @@
-import { Navigate } from 'react-router-dom';
+// redirects to login if user is not authenticated
+import { useAuth } from '../context/AuthContext'
+import { Navigate } from 'react-router-dom'
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
+export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { state } = useAuth()
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  // Check if token exists in localStorage
-  const token = localStorage.getItem('token');
-
-  if (!token) {
-    return <Navigate to="/auth" replace />;
+  if (!state.isAuthenticated) {
+    return <Navigate to="/login" /> // send to login if not logged in
   }
 
-  return <>{children}</>;
+  return <>{children}</>
 }
