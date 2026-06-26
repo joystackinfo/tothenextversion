@@ -4,8 +4,7 @@ const Capsule = require('../models/capsule.model');
 const createCapsule = async (req, res) => {
     const {
         title, message, currentAge, currentMood, currentGoal,
-        currentHobby, currentSong, currentShow, whatWillChange,
-        whatSkillsWillYouLearn, whatAreYouWorriedAbout, unlockDate, photo
+        currentHobby, currentSong, unlockDate, photo
     } = req.body;
 
     try {
@@ -18,10 +17,6 @@ const createCapsule = async (req, res) => {
             currentGoal,
             currentHobby,
             currentSong,
-            currentShow,
-            whatWillChange,
-            whatSkillsWillYouLearn,
-            whatAreYouWorriedAbout,
             unlockDate,
             photo,
         });
@@ -36,7 +31,16 @@ const createCapsule = async (req, res) => {
 const getCapsules = async (req, res) => {
     try {
         const capsules = await Capsule.find({ user: req.user._id }).sort({ createdAt: -1 }); 
-        res.json(capsules);
+        
+        // calculate isLocked for each capsule
+        const capsulesWithStatus = capsules.map(capsule => {
+            const unlockDate = new Date(capsule.unlockDate);
+            const now = new Date();
+            capsule.isLocked = unlockDate > now;
+            return capsule;
+        });
+
+        res.json(capsulesWithStatus);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -51,16 +55,20 @@ const getCapsule = async (req, res) => {
             return res.status(404).json({ message: 'Capsule not found' });
         }
 
-        // make sure the capsule belongs to the logged in user
         if (capsule.user.toString() !== req.user._id.toString()) {
             return res.status(401).json({ message: 'Not authorized' });
         }
+
+        // calculate isLocked
+        const unlockDate = new Date(capsule.unlockDate);
+        const now = new Date();
+        capsule.isLocked = unlockDate > now;
 
         res.json(capsule);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-};
+}
 
 // DELETE /api/capsules/:id
 const deleteCapsule = async (req, res) => {

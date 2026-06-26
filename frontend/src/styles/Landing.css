@@ -1,7 +1,7 @@
 .landing {
   min-height: 100vh;
   background: var(--bg-main);
-  padding: 3rem 1.5rem;
+  padding: 0 16px 120px 16px; /* remove top padding */
 }
 
 .hero {
@@ -121,4 +121,19 @@
 .wall-likes {
   color: var(--brown-warm);
   font-weight: 500;
+}
+.page-header {
+  position: relative;
+  background: linear-gradient(90deg, rgba(193, 122, 58, 0.08), transparent);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  margin: -25px -14px 0 -40px;
+  padding-left: 20px;
+}
+
+.page-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--text-dark);
+  font-weight: 600;
 }

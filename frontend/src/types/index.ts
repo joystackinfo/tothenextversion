@@ -16,10 +16,6 @@ export interface Capsule {
   currentGoal?: string
   currentHobby?: string
   currentSong?: string
-  currentShow?: string
-  whatWillChange?: string
-  whatSkillsWillYouLearn?: string
-  whatAreYouWorriedAbout?: string
   unlockDate: string
   isLocked: boolean // backend uses 'isLocked' not 'isOpened'
   isPublic: boolean

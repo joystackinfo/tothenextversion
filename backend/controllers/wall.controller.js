@@ -1,16 +1,29 @@
 const Wall = require('../models/wall.model');
 const Capsule = require('../models/capsule.model');
 
-
 // GET /api/wall
 const getWall = async (req, res) => {
     try {
         const wall = await Wall.find()
-            .populate('capsule', 'title message currentMood currentGoal createdAt') // grab these fields from the capsule
-            .populate('user', 'name username') // grab name and username from user
+            .populate('capsule', 'title message currentMood currentSong currentHobby createdAt')
+            .populate('user', 'name username email')
             .sort({ createdAt: -1 });
 
-        res.json(wall);
+        // reshape response for frontend - flatten it
+        const formattedWall = wall.map(post => ({
+            _id: post._id,
+            title: post.capsule.title,
+            message: post.capsule.message,
+            currentMood: post.capsule.currentMood,
+            currentSong: post.capsule.currentSong,
+            currentHobby: post.capsule.currentHobby,
+            user: post.user.username, // username directly
+            createdAt: post.capsule.createdAt,
+            likes: post.likes,
+            isAnonymous: post.isAnonymous,
+        }));
+
+        res.json(formattedWall);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -34,12 +47,13 @@ const likePost = async (req, res) => {
     }
 };
 
-// POST /api/wall (called when user opens a capsule and chooses to share)
+// POST /api/capsules/:id/share
 const shareToWall = async (req, res) => {
-    const { capsuleId, isAnonymous } = req.body;
+    const { isAnonymous } = req.body;
+    const { id } = req.params;
 
     try {
-        const capsule = await Capsule.findById(capsuleId);
+        const capsule = await Capsule.findById(id);
 
         if (!capsule) {
             return res.status(404).json({ message: 'Capsule not found' });
@@ -49,13 +63,11 @@ const shareToWall = async (req, res) => {
             return res.status(401).json({ message: 'Not authorized' });
         }
 
-        // make sure capsule is unlocked before sharing
         if (capsule.isLocked) {
             return res.status(400).json({ message: 'Cannot share a locked capsule' });
         }
 
-        // check if already shared
-        const alreadyShared = await Wall.findOne({ capsule: capsuleId });
+        const alreadyShared = await Wall.findOne({ capsule: id });
         if (alreadyShared) {
             return res.status(400).json({ message: 'Capsule already shared' });
         }
@@ -64,9 +76,9 @@ const shareToWall = async (req, res) => {
         await capsule.save();
 
         const post = await Wall.create({
-            capsule: capsuleId,
+            capsule: id,
             user: req.user._id,
-            isAnonymous,
+            isAnonymous: isAnonymous || false,
         });
 
         res.status(201).json(post);

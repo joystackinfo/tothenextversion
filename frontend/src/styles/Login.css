@@ -4,19 +4,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 24px 16px;
-}
-.auth-header {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-}
-
-.auth-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 25px;
-  color: var(--text-dark);
-  font-weight: 600;
+    padding: 0 16px 120px 16px; /* remove top padding */
 }
 
 .auth-card {
@@ -143,4 +131,19 @@
   .auth-card {
     padding: 24px 20px;
   }
+}
+.page-header {
+  position: relative;
+  background: linear-gradient(90deg, rgba(143, 81, 28, 0.08), transparent);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  margin: -25px -14px 0 -40px;
+  padding-left: 20px;
+}
+
+.page-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--text-dark);
+  font-weight: 600;
 }

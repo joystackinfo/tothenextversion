@@ -1,0 +1,184 @@
+.wall-page {
+  min-height: 100vh;
+  background: var(--bg-main);
+  padding: 0 16px 120px 16px; /* remove top padding */
+}
+
+.page-header {
+  position: relative;
+  background: linear-gradient(90deg, rgba(193, 122, 58, 0.08), transparent);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  margin: -25px -14px 0 -40px;
+  padding-left: 20px;
+}
+
+.page-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.wall-content {
+  max-width: 780px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.wall-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.wall-subtitle {
+  font-size: 14px;
+  color: var(--text-sub);
+  margin: 0 0 32px 0;
+}
+
+.wall-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.wall-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.wall-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--brown-warm);
+  box-shadow: 0 4px 12px rgba(193, 122, 58, 0.1);
+}
+
+.card-top {
+  margin-bottom: 12px;
+}
+
+.username {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin: 0;
+  font-weight: 500;
+}
+
+.card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--text-dark);
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.card-message {
+  font-size: 14px;
+  color: var(--text-dark);
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  max-height: 120px; /* limits height */
+  overflow-y: auto; /* scrollable if too long */
+  padding-right: 8px; /* space for scrollbar */
+}
+.wall-card {
+  background: var(--card-bg);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px; /* reduced from 24px */
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.card-meta {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin: 0 0 12px 0; /* reduced from 14px */
+}
+
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px; /* reduced from 12px */
+  border-top: 0.5px solid var(--border);
+  margin-top: 8px; /* reduced from 12px */
+}
+.shared-time {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+  font-weight: 500;
+}
+
+.wall-card {
+  height: auto;
+  min-height: unset;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+  font-weight: 500;
+}
+
+.like-btn:hover {
+  color: var(--brown-warm);
+}
+
+.like-btn.liked {
+  color: #d32f2f;
+}
+
+.empty-state,
+.loading {
+  text-align: center;
+  color: var(--text-sub);
+  padding: 40px 20px;
+}
+
+@media (max-width: 480px) {
+  .wall-list {
+    gap: 16px;
+  }
+
+  .wall-card {
+    padding: 16px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-message {
+    font-size: 14px;
+  }
+
+  .wall-title {
+    font-size: 24px;
+  }
+}

@@ -4,6 +4,7 @@ const { createCapsule, getCapsules, getCapsule, deleteCapsule } = require('../co
 const protect = require('../middleware/auth.middleware');
 
 // protect means you must be logged in to hit these routes
+
 router.post('/', protect, createCapsule);
 router.get('/', protect, getCapsules);
 router.get('/:id', protect, getCapsule);

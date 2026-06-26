@@ -26,6 +26,20 @@ body {
   color: var(--text-dark);
   line-height: 1.6;
 }
+.page-header {
+  position: relative;
+  background: linear-gradient(90deg, rgba(193, 122, 58, 0.08), transparent);
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  margin: 0 -16px 24px -16px; /* extend full width, less bottom margin */
+}
+
+.page-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
