@@ -29,7 +29,9 @@ export default function OpenCapsule() {
           setShared(data.isPublic)
 
         } else {
-          set
+          setError(data.message || 'Failed to load capsule')
+        }
+      } catch (err) {
         setError('Something went wrong')
       } finally {
         setLoading(false)
