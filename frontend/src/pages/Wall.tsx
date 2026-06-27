@@ -21,12 +21,17 @@ export default function Wall() {
         const data = await res.json()
         if (res.ok) {
           setCapsules(data)
-          // initialize likes from capsule data
+          // initialize likes FROM backend response
           const initialLikes: { [key: string]: number } = {}
-          data.forEach((capsule: Capsule) => {
-            initialLikes[capsule._id] = 0
+          const initialLikedByMe: { [key: string]: boolean } = {}
+          
+          data.forEach((capsule: any) => {
+            initialLikes[capsule._id] = capsule.likes || 0
+
+            initialLikedByMe[capsule._id] = capsule.likedBy?.includes(state.user?._id) || false
           })
           setLikes(initialLikes)
+          setLikedByMe(initialLikedByMe)
         }
       } catch (err) {
         console.error('Failed to fetch wall')
@@ -35,42 +40,46 @@ export default function Wall() {
       }
     }
     fetchWall()
-  }, [state.token]) 
+  }, [state.token])
 
   // format days ago
   const formatDaysAgo = (date: string) => {
     const now = new Date()
     const created = new Date(date)
-    const diffTime = Math.abs(now.getTime() - created.getTime());
+    const diffTime = Math.abs(now.getTime() - created.getTime())
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     return diffDays === 0 ? 'today' : diffDays === 1 ? '1 day ago' : `${diffDays}d ago`
   }
 
-  const handleLike = async (capsuleId: string) => {
-  const isCurrentlyLiked = likedByMe[capsuleId]
-  
-  // Update UI immediately
-  setLikedByMe(prev => ({
-    ...prev,
-    [capsuleId]: !prev[capsuleId],
-  }))
-  setLikes(prev => ({
-    ...prev,
-    [capsuleId]: prev[capsuleId] + (isCurrentlyLiked ? -1 : 1),
-  }))
+  // toggle like/unlike
+  const handleLike = async (postId: string) => {
+    const isCurrentlyLiked = likedByMe[postId]
+    
+    // Update UI immediately
+    setLikedByMe(prev => ({
+      ...prev,
+      [postId]: !prev[postId],
+    }))
+    setLikes(prev => ({
+      ...prev,
+      [postId]: prev[postId] + (isCurrentlyLiked ? -1 : 1),
+    }))
 
-  // Save to backend
-  if (!isCurrentlyLiked) {
-    try {
-      await fetch(`http://localhost:5000/api/wall/${capsuleId}/like`, {
-        method: 'PATCH',
-        headers: { Authorization: `Bearer ${state.token}` },
-      })
-    } catch (err) {
-      console.error('Failed to save like')
-    }
+    // Save to backend if liking
+   
+      try {
+        const res = await fetch(`http://localhost:5000/api/wall/${postId}/like`, {
+          method: 'PATCH',
+          headers: { Authorization: `Bearer ${state.token}` },
+        })
+        if (!res.ok) {
+          console.error('Failed to save like')
+        }
+      } catch (err) {
+        console.error('Failed to save like', err)
+      }
+    
   }
-}
 
   return (
     <div className="wall-page">

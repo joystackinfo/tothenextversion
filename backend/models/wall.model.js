@@ -10,9 +10,14 @@ const wallSchema = new mongoose.Schema({
          ref: 'User', 
          required: true },
 
+
     isAnonymous: { type: Boolean,
          default: false
          },
+     likedBy: [{
+          type: mongoose.Schema.Types.ObjectId, 
+          ref: 'User'
+     }],
          
     likes: { type: Number, 
         default: 0

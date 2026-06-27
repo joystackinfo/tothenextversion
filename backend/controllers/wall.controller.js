@@ -10,7 +10,9 @@ const getWall = async (req, res) => {
             .sort({ createdAt: -1 });
 
         // reshape response for frontend - flatten it
-        const formattedWall = wall.map(post => ({
+        const formattedWall = wall
+        .filter(post => post.capsule)
+        .map(post => ({
             _id: post._id,
             title: post.capsule.title,
             message: post.capsule.message,
@@ -20,6 +22,7 @@ const getWall = async (req, res) => {
             user: post.user.username, // username directly
             createdAt: post.capsule.createdAt,
             likes: post.likes,
+            likedBy: post.likedBy,
             isAnonymous: post.isAnonymous,
         }));
 
@@ -38,10 +41,18 @@ const likePost = async (req, res) => {
             return res.status(404).json({ message: 'Post not found' });
         }
 
-        post.likes += 1;
-        await post.save();
+           const alreadyLiked = post.likedBy.some(id => id.equals(req.user._id));
 
-        res.json({ likes: post.likes });
+        if (alreadyLiked) {
+            post.likedBy = post.likedBy.filter(id => !id.equals(req.user._id));
+            post.likes -= 1;
+        } else {
+            post.likedBy.push(req.user._id);
+            post.likes += 1;
+        }
+         
+        await post.save();
+        res.json({ likes: post.likes, likedBy: post.likedBy });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -62,10 +73,11 @@ const shareToWall = async (req, res) => {
         if (capsule.user.toString() !== req.user._id.toString()) {
             return res.status(401).json({ message: 'Not authorized' });
         }
+        const isLocked = new Date(capsule.unlockDate) > new Date();
 
-        if (capsule.isLocked) {
-            return res.status(400).json({ message: 'Cannot share a locked capsule' });
-        }
+          if (isLocked) {
+             return res.status(400).json({ message: 'Cannot share a locked capsule' });
+         }
 
         const alreadyShared = await Wall.findOne({ capsule: id });
         if (alreadyShared) {

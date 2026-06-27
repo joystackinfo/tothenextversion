@@ -82,7 +82,7 @@ const deleteCapsule = async (req, res) => {
         if (capsule.user.toString() !== req.user._id.toString()) {
             return res.status(401).json({ message: 'Not authorized' });
         }
-
+        await Wall.deleteOne({ capsule: capsule._id});
         await capsule.deleteOne();
         res.json({ message: 'Capsule deleted' });
     } catch (error) {

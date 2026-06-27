@@ -29,8 +29,18 @@ export default function Profile() {
         if (res.ok) {
           const total = capsules.length
           const opened = capsules.filter((c: any) => !c.isLocked).length
-          // hearts would come from wall/likes - for now default to 0
-          setStats({ total, opened, hearts: 0 })
+
+          // Get shared capsules and sum their likes
+          const heartRes = await fetch('http://localhost:5000/api/wall', {
+            headers: { Authorization: `Bearer ${state.token}` },
+          })
+          const wallPosts = await heartRes.json()
+          const hearts = wallPosts.reduce((sum: number, post: any) => {
+            if (post.user === state.user?.username) return sum + (post.likes || 0)
+            return sum
+          }, 0)
+      
+          setStats({ total, opened, hearts })
         }
       } catch (err) {
         console.error('Failed to fetch stats')
@@ -40,12 +50,12 @@ export default function Profile() {
     }
 
     if (state.token) fetchStats()
-  }, [state.token])
+  }, [state.token, state.user?.username])
 
   const getInitials = (name?: string) => {
     if (!name) return 'U'
     return name
-      .split(' ') 
+      .split(' ')
       .map(n => n[0])
       .join('')
       .toUpperCase()
@@ -112,7 +122,7 @@ export default function Profile() {
           {loadingStats ? (
             <p className="loading-stats">Loading stats...</p>
           ) : (
-            <div className="stats-grid">
+            <div className="stats-grid" id="stats-section">
               <div className="stat-card">
                 <p className="stat-number">{stats.total}</p>
                 <p className="stat-label">Capsules</p>
@@ -137,6 +147,7 @@ export default function Profile() {
           {/* Edit Form */}
           {editing ? (
             <>
+               <div id="edit-section">
               <div className="edit-field">
                 <label className="edit-label">Username</label>
                 <input
@@ -168,6 +179,7 @@ export default function Profile() {
                   Cancel
                 </button>
               </div>
+              </div>
             </>
           ) : (
             <button className="btn-secondary btn-edit" onClick={() => setEditing(true)}>
@@ -175,6 +187,7 @@ export default function Profile() {
             </button>
           )}
         </div>
+        
 
         {/* Logout Button Outside Container */}
         <button className="btn-logout" onClick={handleLogout}>

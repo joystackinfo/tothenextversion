@@ -120,7 +120,7 @@ return (
       <form onSubmit={handleSubmit}>
         {/* Step 1: The Letter */}
         {step === 1 && (
-          <div className="form-step">
+          <div className="form-step" id="create-step-21">
             <h2 className="step-title">Start your time capsule</h2>
             <p className="step-subtitle">A message to your future self</p>
 
@@ -151,7 +151,7 @@ No word limit. Write freely."
         )}
           {/* Step 2: About You */}
           {step === 2 && (
-            <div className="form-step">
+            <div className="form-step" id="create-step-2">
               <h2 className="step-title">About you right now</h2>
               <p className="step-subtitle">Capture this moment</p>
 
@@ -202,7 +202,7 @@ No word limit. Write freely."
 
           {/* Step 3: Settings */}
           {step === 3 && (
-            <div className="form-step">
+            <div className="form-step" id="create-step-3">
               <h2 className="step-title">Seal your capsule</h2>
               <p className="step-subtitle">When should you open this?</p>
 

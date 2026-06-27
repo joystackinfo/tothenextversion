@@ -14,6 +14,7 @@ export default function OpenCapsule() {
   const [error, setError] = useState('')
   const [sharing, setSharing] = useState(false)
   const [shared, setShared] = useState(false)
+  const [successMsg, setSuccessMsg] = useState(false)
 
   // fetch capsule by ID
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function OpenCapsule() {
         if (res.ok) {
           setCapsule(data)
           setShared(data.isPublic)
+
         } else {
           setError(data.message || 'Failed to load capsule')
         }
@@ -60,7 +62,8 @@ export default function OpenCapsule() {
     })
       if (res.ok) {
         setShared(true)
-        alert('Shared to the emotional wall!')
+        setSuccessMsg(true)
+        setTimeout(() => setSuccessMsg(false), 4000)
       } else {
         setError('Failed to share')
       }
@@ -179,8 +182,30 @@ export default function OpenCapsule() {
             onClick={handleShare}
             disabled={sharing || shared}
           >
+            
             {shared ? '✓ Shared to wall' : '📤 Share to emotional wall'}
+            {/* Success message */}
+{successMsg && (
+  <div style={{
+    position: 'fixed',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: '#C17A3A',
+    color: '#FDF6EE',
+    padding: '12px 24px',
+    borderRadius: '8px',
+    fontSize: '14px',
+    fontWeight: 500,
+    boxShadow: '0 4px 12px rgba(193, 122, 58, 0.3)',
+    zIndex: 1000,
+    animation: 'slideDown 0.3s ease',
+  }}>
+    ✓ Shared to the emotional wall!
+  </div>
+)}
           </button>
+
         </div>
       </div>
 

@@ -73,6 +73,28 @@ const login = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+// PUT /api/auth/profile
+const updateProfile = async (req, res) => {
+  const { username, tagline } = req.body;
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { username, tagline },
+      { new: true }
+    );
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      username: user.username,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // POST /api/auth/forgot-password
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
@@ -133,4 +155,4 @@ const resetPassword = async (req, res) => {
     }
 };
 
-module.exports = { register, login, forgotPassword, resetPassword };
+module.exports = { register, login, forgotPassword, resetPassword, updateProfile };

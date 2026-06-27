@@ -48,7 +48,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="dashboard">
+    <div className="dashboard" id="dashboard-container">
       {/* Logo header */}
       <div className="page-header">
         <span className="page-logo">To the Next Version</span>
@@ -83,7 +83,7 @@ export default function Dashboard() {
           <div className="section-header">
             <h2 className="section-title">Your Capsules</h2>
             {/* Filter buttons */}
-            <div className="filter-buttons">
+            <div className="filter-buttons" id="filter-buttons">
               <button
                 className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
                 onClick={() => setFilter('all')}

@@ -40,7 +40,11 @@ const capsuleSchema = new mongoose.Schema({
     isPublic: { type: Boolean,
          default: false 
         },
-
+     emailSent: {
+        type: Boolean,
+        default: false 
+     },
+    
     photo: String,
 }, 
 
