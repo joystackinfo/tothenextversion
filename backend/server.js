@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 // middleware 
 app.use(cors({
-    origin:'https://tothenextversion-kdt6-lhk6a24ay-joystackinfos-projects.vercel.app',
+    origin:'https://tothenextversion-xyjc.vercel.app',
     credentials: true
 }));
 
