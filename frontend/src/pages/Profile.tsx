@@ -21,7 +21,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch(`${API_URL}api/capsules`, {
+        const res = await fetch(`${API_URL}/api/capsules`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const capsules = await res.json()
@@ -31,7 +31,7 @@ export default function Profile() {
           const opened = capsules.filter((c: any) => !c.isLocked).length
 
           // Get shared capsules and sum their likes
-          const heartRes = await fetch(`${API_URL}api/wall`, {
+          const heartRes = await fetch(`${API_URL}/api/wall`, {
             headers: { Authorization: `Bearer ${state.token}` },
           })
           const wallPosts = await heartRes.json()
@@ -69,7 +69,7 @@ export default function Profile() {
 
     setSaving(true)
     try {
-      const res = await fetch(`${API_URL}api/auth/profile`, {
+      const res = await fetch(`${API_URL}/api/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

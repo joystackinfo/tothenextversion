@@ -21,7 +21,7 @@ export default function OpenCapsule() {
   useEffect(() => {
     const fetchCapsule = async () => {
       try {
-        const res = await fetch(`${API_URL}api/capsules/${id}`, {
+        const res = await fetch(`${API_URL}/api/capsules/${id}`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const data = await res.json()
@@ -50,7 +50,7 @@ export default function OpenCapsule() {
   
   setSharing(true)
   try {
-    const url = `${API_URL}api/wall/${capsule._id}/share`
+    const url = `${API_URL}/api/wall/${capsule._id}/share`
     console.log('Calling:', url)  // DEBUG
     
     const res = await fetch(url, {

@@ -16,7 +16,7 @@ export default function Wall() {
   useEffect(() => {
     const fetchWall = async () => {
       try {
-        const res = await fetch(`${API_URL}api/wall`, {
+        const res = await fetch(`${API_URL}/api/wall`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const data = await res.json()

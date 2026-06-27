@@ -17,7 +17,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchCapsules = async () => {
       try {
-        const res = await fetch(`${API_URL}api/capsules`, {
+        const res = await fetch(`${API_URL}/api/capsules`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const data = await res.json()
