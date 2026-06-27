@@ -12,7 +12,7 @@ export default function Profile() {
   const [tagline, setTagline] = useState('')
   const [error, setError] = useState('')
   const [saving, setSaving] = useState(false)
-  
+    const API_URL = import.meta.env.VITE_API_URL
   // REAL STATS from backend
   const [stats, setStats] = useState({ total: 0, opened: 0, hearts: 0 })
   const [loadingStats, setLoadingStats] = useState(true)
@@ -21,7 +21,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/capsules', {
+        const res = await fetch(`${API_URL}api/capsules`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const capsules = await res.json()
@@ -31,7 +31,7 @@ export default function Profile() {
           const opened = capsules.filter((c: any) => !c.isLocked).length
 
           // Get shared capsules and sum their likes
-          const heartRes = await fetch('http://localhost:5000/api/wall', {
+          const heartRes = await fetch(`${API_URL}api/wall`, {
             headers: { Authorization: `Bearer ${state.token}` },
           })
           const wallPosts = await heartRes.json()
@@ -69,7 +69,7 @@ export default function Profile() {
 
     setSaving(true)
     try {
-      const res = await fetch('http://localhost:5000/api/auth/profile', {
+      const res = await fetch(`${API_URL}api/auth/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

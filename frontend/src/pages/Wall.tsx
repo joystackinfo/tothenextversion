@@ -10,12 +10,13 @@ export default function Wall() {
   const [loading, setLoading] = useState(true)
   const [likes, setLikes] = useState<{ [key: string]: number }>({})
   const [likedByMe, setLikedByMe] = useState<{ [key: string]: boolean }>({})
+     const API_URL = import.meta.env.VITE_API_URL
 
   // fetch public capsules
   useEffect(() => {
     const fetchWall = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/wall', {
+        const res = await fetch(`${API_URL}api/wall`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const data = await res.json()
@@ -68,7 +69,7 @@ export default function Wall() {
     // Save to backend if liking
    
       try {
-        const res = await fetch(`http://localhost:5000/api/wall/${postId}/like`, {
+        const res = await fetch(`${API_URL}api/wall/${postId}/like`, {
           method: 'PATCH',
           headers: { Authorization: `Bearer ${state.token}` },
         })

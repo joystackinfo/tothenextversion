@@ -20,6 +20,7 @@ export default function CreateCapsule() {
   const [unlockDate, setUnlockDate] = useState('')
   const [isPublic, setIsPublic] = useState(false)
   const [photo, setPhoto] = useState<File | null>(null)
+ const API_URL = import.meta.env.VITE_API_URL 
 
   const { state } = useAuth()
   const navigate = useNavigate()
@@ -78,7 +79,7 @@ const handleSubmit = async (e: FormEvent) => {
     formData.append('isPublic', String(isPublic))
     if (photo) formData.append('photo', photo)
 
-    const res = await fetch('http://localhost:5000/api/capsules', {
+    const res = await fetch(`${API_URL}/api/capsule`,{
       method: 'POST',
       headers: { Authorization: `Bearer ${state.token}` },
       body: formData,
@@ -120,7 +121,7 @@ return (
       <form onSubmit={handleSubmit}>
         {/* Step 1: The Letter */}
         {step === 1 && (
-          <div className="form-step" id="create-step-21">
+          <div className="form-step" id="create-step-1">
             <h2 className="step-title">Start your time capsule</h2>
             <p className="step-subtitle">A message to your future self</p>
 

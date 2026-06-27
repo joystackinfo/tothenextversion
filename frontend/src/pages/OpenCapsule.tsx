@@ -15,12 +15,13 @@ export default function OpenCapsule() {
   const [sharing, setSharing] = useState(false)
   const [shared, setShared] = useState(false)
   const [successMsg, setSuccessMsg] = useState(false)
+   const API_URL = import.meta.env.VITE_API_URL
 
   // fetch capsule by ID
   useEffect(() => {
     const fetchCapsule = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/capsules/${id}`, {
+        const res = await fetch(`${API_URL}api/capsules/${id}`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const data = await res.json()
@@ -49,7 +50,7 @@ export default function OpenCapsule() {
   
   setSharing(true)
   try {
-    const url = `http://localhost:5000/api/wall/${capsule._id}/share`
+    const url = `${API_URL}api/wall/${capsule._id}/share`
     console.log('Calling:', url)  // DEBUG
     
     const res = await fetch(url, {

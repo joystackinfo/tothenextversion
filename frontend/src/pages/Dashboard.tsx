@@ -11,12 +11,13 @@ export default function Dashboard() {
   const [capsules, setCapsules] = useState<Capsule[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState<'all' | 'locked' | 'ready'>('all')
+   const API_URL = import.meta.env.VITE_API_URL
 
   // fetch user's capsules on mount
   useEffect(() => {
     const fetchCapsules = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/capsules', {
+        const res = await fetch(`${API_URL}api/capsules`, {
           headers: { Authorization: `Bearer ${state.token}` },
         })
         const data = await res.json()
