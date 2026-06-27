@@ -79,7 +79,7 @@ const handleSubmit = async (e: FormEvent) => {
     formData.append('isPublic', String(isPublic))
     if (photo) formData.append('photo', photo)
 
-    const res = await fetch(`${API_URL}/api/capsule`,{
+    const res = await fetch(`${API_URL}/api/capsules`,{
       method: 'POST',
       headers: { Authorization: `Bearer ${state.token}` },
       body: formData,
